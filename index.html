@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html><head>
+	<title>Roller Example</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link href="minified/cb-roller-min.css" rel="stylesheet" media="screen">
+	<link href="assets/style.min.css" rel="stylesheet" media="screen">
+	<script src="minified/cb-roller-min.js"></script>
+</head><body>
+<div class="roller roller-page">
+	<div class="roller-bg" style="background-image: url(assets/background.jpg);"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">No Effects</p>
+		<p class="color-white code">
+			class="roller-bg"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg roller-scroll roller-para" style="background-image: url(assets/background.jpg);"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">Parallax</p>
+		<p class="color-white code">
+			class="roller-bg roller-scroll roller-para"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg roller-scroll roller-zoom" style="background-image: url(assets/background.jpg);" roller-scroll-offset="0.5"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">Zoom (offset: 0.5)</p>
+		<p class="color-white code">
+			class="roller-bg roller-scroll roller-zoom"<br/>roller-scroll-offset="0.5"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg roller-scroll roller-blur" style="background-image: url(assets/background.jpg);" roller-scroll-offset="1"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">Blur (offset: 1.0)</p>
+		<p class="color-white code">
+			class="roller-bg roller-scroll roller-blur"<br/>roller-scroll-offset="1"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg roller-scroll roller-fade" style="background-image: url(assets/background.jpg);"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">Fade</p>
+		<p class="color-white code">
+			class="roller-bg roller-scroll roller-fade"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg roller-scroll roller-zoom roller-blur" style="background-image: url(assets/ccc13-bg-placeholder.jpg);" roller-scroll-offset="0.8">
+		<video loop autoplay preload="auto">
+			<source src="assets/background.mp4" type="video/mp4">
+		</video>
+	</div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">Video with Zoom and Blur Effects<br/>(offset: 0.8)</p>
+		<p class="color-white code">
+			class="roller-bg roller-scroll roller-zoom roller-blur"<br/>roller-scroll-offset="0.8"
+		</p>
+	</div>
+</div>
+<div class="roller roller-page">
+	<div class="roller-bg" style="background-image: url(assets/background.jpg);"></div>
+	<div class="roller-content roller-vertcenter roller-horzcenter center">
+		<p class="color-white">No Effects</p>
+		<p class="color-white code">
+			class="roller-bg"
+		</p>
+	</div>
+</div>
+</body></html>
