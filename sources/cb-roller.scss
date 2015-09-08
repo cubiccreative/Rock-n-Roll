@@ -6,25 +6,25 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 
 /* !--- Variables --- */
 
-$roller-page-height: 700px;
-$roller-min-width: 940px;
+$rnr-page-height: 700px;
+$rnr-min-width: 940px;
 
 
 /* !--- Elements --- */
 
-.roller {
+.rnr {
 	position: relative;
-	width: 100%; min-width: $roller-min-width;
+	width: 100%; min-width: $rnr-min-width;
 	background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
 	overflow: hidden; z-index: 1;
 }
 
-.roller.roller-page { height: $roller-page-height; }
-.roller.roller-page-half { height: $roller-page-height / 2; }
+.rnr.rnr-page { height: $rnr-page-height; }
+.rnr.rnr-page-half { height: $rnr-page-height / 2; }
 
-.roller-bg {
+.rnr-bg {
     position: absolute;
 	top: -100px; bottom: -100px;
 	left: -30px; right: -30px;
@@ -32,7 +32,7 @@ $roller-min-width: 940px;
 	overflow: hidden; z-index: 1;
 }
 
-.roller-bg.roller-scroll {
+.rnr-bg.rnr-scroll {
 	-webkit-transform: translateY(0px);
 	-moz-transform: translateY(0px);
 	-ms-transform: translateY(0px);
@@ -40,7 +40,7 @@ $roller-min-width: 940px;
 	transform: translateY(0px);
 }
 
-.roller-bg video {
+.rnr-bg video {
 	position: absolute; top: 50%; left: 50%;
 	min-width: 100%; min-height: 100%;
     -webkit-transform: translate(-50%, -50%);
@@ -50,22 +50,22 @@ $roller-min-width: 940px;
     transform: translate(-50%, -50%);
 }
 
-.roller-content {
+.rnr-content {
 	position: relative; margin: 0 auto;
-	width: $roller-min-width; height: auto;
+	width: $rnr-min-width; height: auto;
 	overflow: visible; z-index: 2;
 	font-size: 0;
 }
 
-.roller-fixed {
+.rnr-fixed {
 	position: fixed; top: 50%; left: 50%;
-	width: $roller-min-width; height: 100px;
-	margin-left: $roller-min-width / -2; margin-top: -50px;
+	width: $rnr-min-width; height: 100px;
+	margin-left: $rnr-min-width / -2; margin-top: -50px;
 	z-index: 2;
 }
 
 
 /* !--- Positioning --- */
 
-.roller-vertcenter { position: absolute; top: 50%; }
-.roller-horzcenter { position: absolute; left: 50%; }
+.rnr-vertcenter { position: absolute; top: 50%; }
+.rnr-horzcenter { position: absolute; left: 50%; }
