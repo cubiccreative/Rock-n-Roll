@@ -63,10 +63,10 @@ h1 {
 
 
 /* !--- Snapping --- */
-.roller-snap-target {
+.rnr-snap-target {
 	position: relative;
 }
-.roller-snap-target .roller-snapin, .roller-snap-target .roller-snapout {
+.rnr-snap-target .rnr-snapin, .rnr-snap-target .rnr-snapout {
 	position: absolute !important;
 	clip: auto !important;
 }
