@@ -256,7 +256,6 @@ RNR.readyHandler = function() {
     document.addEventListener("scroll", RNR.scrollHandler);
     window.addEventListener("resize", RNR.periodicHandler);
 	requestAnimationFrame(RNR.updateFrame);
-    console.log('init');
 };
 
 if (document.readyState !== 'loading'){
