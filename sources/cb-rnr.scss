@@ -6,9 +6,10 @@ article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,su
 
 /* !--- Variables --- */
 
-$rnr-page-height: 700px;
+$rnr-page-height: 600px;
 $rnr-min-width: 940px;
 
+$rnr-responsive-max-width: 1024px;
 
 /* !--- Elements --- */
 
@@ -21,15 +22,26 @@ $rnr-min-width: 940px;
 	overflow: hidden; z-index: 1;
 }
 
-.rnr.rnr-page { height: $rnr-page-height; }
-.rnr.rnr-page-half { height: $rnr-page-height / 2; }
+.rnr.rnr-page { height: 100vh; min-height: $rnr-page-height; }
+.rnr.rnr-page-half { height: 50vh; min-height: $rnr-page-height / 2; }
+.rnr.rnr-page-double { height: 200vh; min-height: $rnr-page-height * 2; }
+.rnr.rnr-page-triple { height: 300vh; min-height: $rnr-page-height * 3; }
+.rnr.rnr-page-freesize { height: auto; min-height: auto; }
+
+.rnr-bg, .rnr-bg-fixed {
+	background-size: cover; background-position: 50% 50%;
+	overflow: hidden; z-index: 1;
+}
 
 .rnr-bg {
     position: absolute;
 	top: -100px; bottom: -100px;
 	left: -30px; right: -30px;
-	background-size: cover; background-position: 50% 50%;
-	overflow: hidden; z-index: 1;
+}
+
+.rnr-bg-fixed {
+	position: fixed;
+	top: 0; bottom: 0; left: 0; right: 0;
 }
 
 .rnr-bg.rnr-scroll {
@@ -40,14 +52,19 @@ $rnr-min-width: 940px;
 	transform: translateY(0px);
 }
 
-.rnr-bg video {
+.rnr-bg video, .rnr-bg-fixed video {
 	position: absolute; top: 50%; left: 50%;
+	width: 100%; height: auto;
 	min-width: 100%; min-height: 100%;
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.rnr-vert .rnr-bg video, .rnr-vert .rnr-bg-fixed video {
+	width: auto; height: 100%;
 }
 
 .rnr-content {
@@ -57,11 +74,27 @@ $rnr-min-width: 940px;
 	font-size: 0;
 }
 
+.rnr-content.rnr-freesize {
+	width: auto; height: auto;
+}
+
 .rnr-fixed {
 	position: fixed; top: 50%; left: 50%;
 	width: $rnr-min-width; height: 100px;
 	margin-left: $rnr-min-width / -2; margin-top: -50px;
 	z-index: 2;
+}
+
+.rnr-snapin-to .rnr-snapin {
+	position: absolute !important; top: 0 !important; left: 0 !important;
+	margin-top: 0 !important; margin-left: 0 !important;
+	height: 100% !important; width: 100% !important;
+}
+
+@media screen and (max-width: $rnr-responsive-max-width) {
+	.rnr-content {
+		width: 100%; height: auto;
+	}
 }
 
 
