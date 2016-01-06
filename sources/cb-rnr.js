@@ -15,11 +15,14 @@ RNR.arrVideoObj = [];
 
 RNR.windowHeight = 700;
 RNR.windowHeightHalf = 350;
+RNR.windowWidth = 1000;
+RNR.windowWidthHalf = 500;
+RNR.windowIsVertical = false;
 RNR.currentScrollY = 0;
 RNR.lastPeriodicRan = 0;
 RNR.lastTimestamp = performance.now();
 RNR.periodicInterval = 500;
-
+RNR.videoRatio = 1.77777777777777; // 16:9
 
 
 // Data updating functions
@@ -27,6 +30,18 @@ RNR.periodicInterval = 500;
 RNR.updateGlobalData = function() {
 	RNR.windowHeight = document.documentElement.clientHeight;
 	RNR.windowHeightHalf = RNR.windowHeight / 2;
+	RNR.windowWidth = document.documentElement.clientWidth;
+	RNR.windowWidthHalf = RNR.windowWidth / 2;
+	if ((RNR.windowWidth / RNR.windowHeight) < RNR.videoRatio) {
+		RNR.windowIsVertical = true;
+	} else {
+		RNR.windowIsVertical = false;
+	}
+	if ( window.matchMedia("only screen and (max-width: 1024px)").matches ) {
+		RNR.parallaxEnabled = false;
+	} else {
+		RNR.parallaxEnabled = true;
+	}
 };
 
 RNR.updateClippingData = function() {
@@ -46,6 +61,7 @@ RNR.updateSnapInData = function() {
 		elems[i].dataSnapIn = target.getBoundingClientRect().top + (target.offsetHeight / 2);
 		elems[i].dataSnapInTo = elems[i].getAttribute('rnr-snapin-to');
 		elems[i].dataSnapInFrom = elems[i].getAttribute('rnr-snapin-from');
+		elems[i].dataSnapInTop = document.getElementById(elems[i].dataSnapInTo).getBoundingClientRect().top + document.body.scrollTop - document.getElementById(elems[i].dataSnapInTo).offsetTop;
 	}
 };
 
@@ -56,6 +72,7 @@ RNR.updateScrollData = function() {
 		elems[i].parentNode.dataHeight = elems[i].parentNode.offsetHeight;
 		elems[i].dataScrollRatio = elems[i].getAttribute('rnr-scroll-ratio') || 0;
 		elems[i].dataScrollOffset = elems[i].getAttribute('rnr-scroll-offset') || 0;
+		elems[i].dataScrollMax = elems[i].getAttribute('rnr-scroll-max') || 5;
 	}
 };
 
@@ -134,13 +151,27 @@ RNR.periodicHandler = function() {
 			RNR.arrScrollOnce.splice(i,1);
 		}
 	}
+	// Change window orientation class
+	if (RNR.windowIsVertical) {
+		if (document.getElementsByTagName('body')[0].classList) {
+			document.getElementsByTagName('body')[0].classList.add('rnr-vert');
+		} else {
+			document.getElementsByTagName('body')[0].className += ' ' + 'rnr-vert';
+		}
+	} else {
+		if (document.getElementsByTagName('body')[0].classList) {
+			document.getElementsByTagName('body')[0].classList.remove('rnr-vert');
+		} else {
+			document.getElementsByTagName('body')[0].className = document.getElementsByTagName('body')[0].className.replace(new RegExp('(^|\\b)' + 'rnr-vert'.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+		}
+	}
 	// console.log('Periodic time taken: ' + (performance.now() - d));
 };
 
 // Update animation frames based on current scroll position.
 RNR.updateFrame = function(timestamp) {
 	var t = RNR.currentScrollY;
-	var i,p,h,r,o;
+	var i,p,h,r,o,m;
 	var baseY,y;
 	if (RNR.parallaxEnabled) {
 		// All scroll effects (parallax/blur/zoom)
@@ -149,8 +180,18 @@ RNR.updateFrame = function(timestamp) {
 			h = RNR.arrScroll[i].parentNode.dataHeight;
             r = RNR.arrScroll[i].dataScrollRatio;
             o = RNR.arrScroll[i].dataScrollOffset;
+            m = RNR.arrScroll[i].dataScrollMax;
 			if ( (t > (p - RNR.windowHeight)) && (t < p + h) ) {
 				baseY = (t - p) / RNR.windowHeight;
+				if(m > 0) {
+					if(baseY > m) {
+						baseY = m;
+					}
+				} else {
+					if(baseY < m) {
+						baseY = m;
+					}
+				}
 				if(r) {
 					baseY = baseY * r;
 				}
@@ -200,6 +241,7 @@ RNR.updateFrame = function(timestamp) {
 			}
 		}
 	}
+	t = RNR.currentScrollY;
 	if (RNR.fixedEnabled) {
 		// Fixed header
 		for (i = 0; i < RNR.arrFixedObj.length; i++) {
@@ -212,7 +254,7 @@ RNR.updateFrame = function(timestamp) {
 		// Snapin
 		try {
 			for (i = 0; i < RNR.arrSnapInObj.length; i++) {
-				if ((t + RNR.windowHeightHalf) > RNR.arrSnapInObj[i].dataSnapIn) {
+				if (t >= RNR.arrSnapInObj[i].dataSnapInTop) {
 					document.getElementById(RNR.arrSnapInObj[i].dataSnapInTo).appendChild(RNR.arrSnapInObj[i]);
 				}
 				else {
