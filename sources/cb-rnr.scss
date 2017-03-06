@@ -28,6 +28,8 @@ $rnr-responsive-max-width: 1024px;
 .rnr.rnr-page-triple { height: 300vh; min-height: $rnr-page-height * 3; }
 .rnr.rnr-page-freesize { height: auto; min-height: auto; }
 
+.rnr.rnr-remove.rnr-removed { visibility: hidden; pointer-events: none; }
+
 .rnr-bg, .rnr-bg-fixed {
 	background-size: cover; background-position: 50% 50%;
 	overflow: hidden; z-index: 1;
