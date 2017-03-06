@@ -35,6 +35,7 @@ To apply one or more scrolling effects each background or any other DOM element 
 - Zoom `rnr-zoom`
 - Blur `rnr-blur`
 - Fade `rnr-fade`
+- Remove `rnr-remove`
 
 Note that multiple effects may be applied, simply assign more class to it.
 
