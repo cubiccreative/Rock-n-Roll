@@ -66,7 +66,7 @@ RNR.updateSnapInData = function() {
 };
 
 RNR.updateScrollData = function() {
-	var elems = document.getElementsByClassName('rnr-scroll');
+	var elems = document.querySelectorAll(('.rnr-scroll, .rnr-scrollonce'));
 	for (var i = 0; i < elems.length; i++) {
 		elems[i].parentNode.dataTop = document.body.scrollTop + elems[i].parentNode.getBoundingClientRect().top;
 		elems[i].parentNode.dataHeight = elems[i].parentNode.offsetHeight;
@@ -144,11 +144,15 @@ RNR.periodicHandler = function() {
 			}
 		}
 	}
-	// Change class when scrolled
+	// Change class and run handler when scrolled
 	for (i = 0; i < RNR.arrScrollOnce.length; i++) {
 		if(t > (RNR.arrScrollOnce[i].dataTop + RNR.arrScrollOnce[i].dataScrollOffset) - RNR.windowHeightHalf) {
-			RNR.arrScrollOnce[i].classList.add('rnr-scrolled');
-			RNR.arrScrollOnce.splice(i,1);
+			if(!RNR.arrScrollOnce[i].classList.contains('rnr-scrolled')) {
+				RNR.arrScrollOnce[i].classList.add('rnr-scrolled');
+				if(typeof RNR.arrScrollOnce[i].rnrScrolledHandler === 'function') {
+					RNR.arrScrollOnce[i].rnrScrolledHandler();
+				}
+			}
 		}
 	}
 	// Change window orientation class
@@ -238,6 +242,15 @@ RNR.updateFrame = function(timestamp) {
 						RNR.arrScroll[i].style.opacity = 1;
 					}
 				}
+				// Removal
+				if (RNR.arrScroll[i].classList.contains('rnr-remove')) {
+					console.log(baseY);
+					if (baseY < 0) {
+						RNR.arrScroll[i].classList.remove('rnr-removed');
+					} else {
+						RNR.arrScroll[i].classList.add('rnr-removed');
+					}
+				}
 			}
 		}
 	}
@@ -289,7 +302,6 @@ RNR.scrollHandler = function() {
 // Initializer
 
 RNR.readyHandler = function() {
-    console.log(RNR);
 	window.scrollTo(0,0);
 	RNR.arrScroll = document.getElementsByClassName('rnr-scroll');
 	RNR.arrFixedObj = document.getElementsByClassName('rnr-fixed-clipped');
